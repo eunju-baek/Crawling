@@ -2,7 +2,9 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from html_table_parser import parser_functions as parser
 import requests
+from user_agent import generate_user_agent, generate_navigotor
 
+hdr = {'User-Agent':generate_user_agent(os='win',device_tpye='desktop')}
 a = []
 
 with open("WS.txt") as f:
@@ -22,7 +24,7 @@ for value in a:
 
 ll = []
 for value in url2:
-    r = requests.get(url=value)
+    r = requests.get(url=value,headers=hdr)
     html2 = r.text
     bs = BeautifulSoup(html2, 'html.parser')
     temp = bs.find_all('table')
